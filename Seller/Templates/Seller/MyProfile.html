@@ -1,0 +1,53 @@
+{% extends 'Seller/header.html'%}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center><h1>My Profile</h1></center>
+    <br><br><br>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table align="center" border="1" cellpadding="10">
+            <tr>
+                <td colspan="2"><img src="{{sdata.photo.url}}" alt="{{sdata.seller_photo.url}}" width="150" height="150"></td>
+                
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{sdata.name}}</td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td>{{sdata.contact}}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{sdata.email}}</td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>{{sdata.gender}}</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>{{sdata.address}}</td>
+            </tr>
+            <tr>
+                <td>District</td>
+                <td>{{sdata.place.district.district_name}}</td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td>{{sdata.place.place_name}}</td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+{% endblock content %}

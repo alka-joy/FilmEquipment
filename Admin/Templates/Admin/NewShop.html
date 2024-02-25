@@ -1,0 +1,35 @@
+{%  extends 'Admin/header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {%csrf_token %}
+    <table border="1">
+        <tr>
+            <td>Sl.no</td>
+            <td>New Shop</td>
+            <td>Contact</td>
+            <td>Email</td>
+            <td>Address</td>
+            
+        </tr>
+        <tr>
+            {% for i in data  %}
+<td>{{forloop.counter}}</td>
+<td>{{i.shop_name}}</td>
+
+        
+            </tr>
+            {% endfor %}            
+    </table>
+    </form>
+</body>
+</html>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends 'Seller/header.html'%}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center><h1>Edit Profile</h1></center>
+    <br><br><br>
+    <form method="post" action="">
+        {% csrf_token %}
+        <table align="center" cellpadding="10" border="1">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" id="" name="txt_name" value="{{sdata.name}}"></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="text" id="" name="txt_con" value="{{sdata.contact}}"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" id="" name="txt_email" value="{{sdata.email}}"></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><textarea name="txt_address" id="" cols="30" rows="10">{{sdata.address}}</textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="btn_submit" id="" value="update">
+                <input type="reset" name="btn_cancel" id="" value="cancel"></td>
+                
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+{% endblock content %}

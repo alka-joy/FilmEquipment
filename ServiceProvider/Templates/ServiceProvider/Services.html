@@ -1,0 +1,81 @@
+{% extends 'ServiceProvider/header.html'%}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center><h1>Services</h1></center>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <table class="table table-bordered" align="center">
+                        <tr>
+                            <td>Name</td>
+                            <td><input type="text" class="form-control" name="txt_name" id=""></td>
+                        </tr>
+                        <tr>
+                            <td>Rate</td>
+                            <td><input type="rate" class="form-control" name="txt_rate" id=""></td>
+                        </tr>
+                        <tr>
+                            <td>Details</td>
+                            <td><input type="text" class="form-control" name="txt_detail" id=""></td>
+                        </tr>
+                        <tr>
+                            <td>Service Type</td>
+                            <td>
+                                <select class="form-control" name="select_ser" id="sel_service">
+                                    <option>--select--</option>
+                                    {% for i in disdata %}
+                                    <option value="{{ i.id }}">{{ i.service_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <input type="submit" class="btn btn-primary" name="btn_save" value="Save" id="">
+                                <input type="submit" class="btn btn-secondary" name="btn_reset" value="Cancel" id="">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <div class="container mt-5">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sl.no</th>
+                    <th>Rate</th>
+                    <th>Details</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.rate}}</td>
+                    <td>{{i.details}}</td>
+                    <td>
+                        <a href="{% url 'ServiceProvider:del_services' i.id %}" class="btn btn-danger">Delete</a>
+                        <a href="{% url 'ServiceProvider:edit_services' i.id %}" class="btn btn-warning">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+{% endblock content %}

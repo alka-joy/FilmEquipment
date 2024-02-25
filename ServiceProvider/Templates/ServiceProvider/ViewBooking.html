@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" id="" enctype="multipart/form-data">
+        {%csrf_token %}
+        <div class="container mt-5">
+            <table class="table table-bordered text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Sl.no</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">Service Date</th>
+                        <th scope="col">Booking Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in rdata %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.user.name }}</td>
+                        <td>{{ i.user.contact }}</td>
+                        <td>{{ i.booked_date }}</td>
+                        <td>{{ i.booking_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </form>
+</body>
+</html>

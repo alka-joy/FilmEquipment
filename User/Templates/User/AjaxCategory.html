@@ -1,0 +1,26 @@
+<table align="center" cellpadding="50" style="border-collapse: collapse" id="result">
+    <tr>
+        {% for i in rdata %}
+
+        <td>
+            <div style="text-align:center;border:1px solid black;margin:22px;padding:20px">
+
+                <p><img src="{{i.image.url}}" width="100px" height="100px" /></p>
+                <br>
+                <p>{{i.name}}</p>
+                <br>
+                <p>{{i.code}}</p>
+                <br>
+                <p>{{i.rate}}</p>
+                <br>
+                
+            </div>
+        </td>
+        {% if forloop.counter|divisibleby:4 %}
+    </tr>
+    <tr>
+        {% endif %}
+
+
+        {% endfor %}
+</table>

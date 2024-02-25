@@ -1,0 +1,84 @@
+{% extends 'Seller/header.html'%}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center><h1>Rent Items</h1></center>
+    <form action="" method="post" enctype="multipart/form-data">
+        {%csrf_token %}
+        <table  align="center" border="1" cellpadding="10">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" id=""></td>
+            </tr>
+            <tr>
+                <td>Code</td>
+                <td><input type="text" name="txt_code" id=""></td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td><input type="file" name="txt_img" id=""></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><textarea name="txt_dis" id="" cols="30" rows="10"></textarea></td>
+            </tr>
+            <tr>
+                <td>Rate</td>
+                <td><input type="text" name="txt_rate" id=""></td>
+            </tr>
+            <tr> 
+                <td>Category</td>
+                <td><select name="select_category" id="sel_category">
+                    <option>--select--</option>
+                    {% for i in categoryid %}
+                    <option value="{{ i.id }}">{{ i.category_name }}</option>
+                    {% endfor %}   
+                </select></td>
+            </tr>
+            <tr>
+                <td>Features</td>
+                <td><input type="text" name="txt_features" id=""></td>
+            </tr>
+            <tr>
+                <td>Stock</td>
+                <td><input type="text" name="txt_stock" id=""></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="btn_save" value="Save" id="" >
+                    <input type="submit" name="btn_reset" value="Cancel" id=""></td>
+                
+            </tr>
+        </table>
+    </form>
+    <table border="1">
+        <tr>
+            <td>Sl.no</td>
+            <td>Code</td>
+            <td>Image</td>
+            <td>Rate</td>
+            <td>Stock</td>
+            <td>Action</td>
+        </tr>
+        <tr>
+            {% for i in rdata  %}
+<td>{{forloop.counter}}</td>
+<td>{{i.code}}</td>
+<td>{{i.image}}</td>
+<td>{{i.rate}}</td>
+<td>{{i.stock}}</td>
+<td><a href="{% url 'Seller:del_rentitem' i.id %}">Delete</a></td>
+   
+        
+            </tr>
+            {% endfor %}            
+    </table>
+</body>
+</html>
+{% endblock content %}

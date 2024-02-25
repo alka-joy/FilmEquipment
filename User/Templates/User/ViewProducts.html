@@ -1,0 +1,74 @@
+{% extends 'User/header.html'%}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center><h1>View Product</h1></center>
+    <br><br><br>
+    <form action="" method="post" id="Searchseller" data-category-url="{% url 'User:AjaxCategory' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>Category</td>
+                            <td>
+                                <select class="form-control" name="select_category" id="sel_category">
+                                    <option>--select--</option>
+                                    {% for i in categoryid %}
+                                    <option value="{{ i.id }}">{{ i.category_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <div class="container mt-5">
+        <div class="row">
+            {% for i in rdata %}
+            <div class="col-md-3">
+                <div class="card" style="border: 1px solid black; margin: 22px; padding: 20px;">
+                    <img src="{{ i.image.url }}" class="card-img-top" alt="product image" width="100px" height="100px">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.name }}</h5>
+                        <p class="card-text">{{ i.code }}</p>
+                        <p class="card-text">{{ i.rate }}</p>
+                        <a href="{% url 'User:addtocart' i.id %}" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:4 %}
+        </div>
+        <div class="row">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $("#sel_category").change(function () {
+            var did = $(this).val();
+            var ur = $("#Searchseller").attr("data-category-url");
+            $.ajax({
+                url: ur,
+                data: { Dist: did, },
+                success: function (data) { 
+                    $("#cat").html(data);
+                },
+            });
+        });
+</script>
+{% endblock content %}

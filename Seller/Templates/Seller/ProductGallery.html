@@ -1,0 +1,33 @@
+{% extends 'Seller/header.html'%}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body> 
+    <center><h1>Product Gallery</h1></center>
+    <form action="" method="post" enctype="multipart/form-data">
+        {%csrf_token %}
+        <table  align="center" border="1" cellpadding="10">
+            <tr>
+                <td>Caption</td>
+                <td><input type="text" name="txt_caption" id=""></td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td><input type="file" name="txt_img" id=""></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="btn_save" value="Save" id="" >
+                    <input type="submit" name="btn_reset" value="Cancel" id=""></td>
+                
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+{% endblock content %}

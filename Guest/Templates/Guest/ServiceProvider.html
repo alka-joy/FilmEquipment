@@ -1,0 +1,71 @@
+{% extends 'Guest/header.html'%}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center><h3>Service Provider Registration</h3></center>
+    <br><br><br>
+    <br><br>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="container">
+            <table class="table table-bordered">
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" name="txt_name" id="" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Contact</td>
+                    <td>
+                        <input type="text" name="txt_con" id="" required pattern="[7-9]{1}[0-9]{9}" title="Phone number with 7-9 and remaining 9 digits with 0-9" class="form-control" onchange="checknum(this)">
+                        <span id="contact"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>
+                        <input type="text" name="txt_email" id="" class="form-control" onchange="emailval(this)">
+                        <span id="content"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><textarea name="txt_add" id="" cols="30" rows="10" class="form-control"></textarea></td>
+                </tr>
+                <tr>
+                    <td>District</td>
+                    <td>
+                        <select name="select_dis" id="sel_district" class="form-control">
+                            <option>--select--</option>
+                            {% for i in disdata %}
+                            <option value="{{ i.id }}">{{ i.district_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="txt_pass" id="" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Confirm Password</td>
+                    <td><input type="password" name="txt_conform" id="" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" name="btn_save" value="Register" class="btn btn-primary">
+                        <input type="reset" name="btn_reset" value="Cancel" class="btn btn-secondary">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>
+{% endblock content %}

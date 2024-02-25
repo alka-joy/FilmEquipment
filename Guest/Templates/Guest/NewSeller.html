@@ -1,0 +1,102 @@
+{% extends 'Guest/header.html'%}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center><h1>Seller Registration</h1></center>
+    <br><br><br>
+    <form action="" method="post" id="SellerForm" data-places-url="{% url 'Guest:AjaxPlace' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+            <table class="table table-bordered">
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" name="txt_name" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Contact</td>
+                    <td><input type="text" name="txt_con" class="form-control" required pattern="[7-9]{1}[0-9]{9}" title="Phone number with 7-9 and remaining 9 digits with 0-9" id="txt_contact" onchange="checknum(this)"><span id="contact"></span></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="text" name="txt_email" class="form-control" onchange="emailval(this)"><span id="content"></span></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                        <input type="radio" name="btn_gen" value="male">Male
+                        <input type="radio" name="btn_gen" value="female">Female
+                        <input type="radio" name="btn_gen" value="other">Other
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><textarea name="txt_add" class="form-control" cols="30" rows="10"></textarea></td>
+                </tr>
+                <tr>
+                    <td>District</td>
+                    <td>
+                        <select name="select_dis" id="sel_district" class="form-control">
+                            <option>--select--</option>
+                            {% for i in disdata %}
+                            <option value="{{ i.id }}">{{ i.district_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr> 
+                    <td>Place</td>
+                    <td>
+                        <select name="select_place" id="sel_place" class="form-control">
+                            <option>--select--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Photo</td>
+                    <td><input type="file" name="txt_pic" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Proof</td>
+                    <td><input type="file" name="txt_proof" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="txt_pass" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Confirm Password</td>
+                    <td><input type="password" name="txt_conform" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" name="btn_save" value="Register" class="btn btn-primary">
+                        <input type="reset" name="btn_reset" value="Cancel" class="btn btn-secondary">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $("#sel_district").change(function () {
+            var did = $(this).val();
+            var ur = $("#SellerForm").attr("data-places-url");
+            $.ajax({
+                url: ur,
+                data: { Dist: did, },
+                success: function (data) { 
+                    $("#sel_place").html(data);
+                },
+            });
+        });
+</script>
+{% endblock content %}
