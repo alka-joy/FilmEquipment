@@ -91,3 +91,25 @@ def ajaxplace(request):
     disob=tbl_district.objects.get(id=request.GET.get('Dist'))
     places=tbl_place.objects.filter(district=disob)
     return render(request,"Seller/AjaxPlace.html",{'plc':places})
+
+def sellercomplaint(request):
+    sdata=tbl_newseller.objects.get(id=request.session['sid'])
+    comdata=tbl_complainttype.objects.all()
+    compdata=tbl_sellercomplaint.objects.all()
+    if request.method=="POST":
+        com=tbl_complainttype.objects.get(id=request.POST.get("select_com"))
+        tbl_sellercomplaint.objects.create(    
+            complainttitle = request.POST.get("txt_name"),
+            content = request.POST.get("txt_content"),
+            complainttype=com,
+            seller=sdata,
+
+        )
+        return render(request,"Seller/SellerComplaint.html",{'sdata':sdata,'comdata':comdata,'compdata':compdata}) 
+    else:
+        return render(request,"Seller/SellerComplaint.html",{'sdata':sdata,'comdata':comdata,'compdata':compdata})
+
+
+def DeleteComplaint(request,did):
+    tbl_sellercomplaint.objects.get(id=did).delete()
+    return redirect("Seller:SellerComplaint")        

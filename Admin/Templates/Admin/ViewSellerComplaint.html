@@ -1,0 +1,37 @@
+{%  extends 'Admin/header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" id="" enctype="multipart/form-data">
+        {%csrf_token %}
+        <div class="container mt-5">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Sl.no</th>
+                        <th>Complaint Type</th>
+                        <th>Complaint Title</th>
+                        <th>Content</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in rdata %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{i.complainttype.complaint_name}}</td>
+                            <td>{{i.complainttitle}}</td>
+                            <td>{{i.content}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </body>
+        </html>
+        {% endblock content %}

@@ -1,3 +1,6 @@
+{% extends 'User/header.html'%}
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,27 +10,36 @@
 </head>
 <body>
     <form action="" method="post" id="" enctype="multipart/form-data">
-        {%csrf_token %}
-            <table align="center" border="1" cellpadding="10">
-                <tr>
-                    <td>Sl.no</td>
-                    <td>Name</td>
-                    <td>Rate</td>
-                    <td>Details</td>
-                    <td>booking Date</td>
-                    
-                </tr>
-                {% for i in rdata %}
-                <tr>
-                    <td>{{forloop.counter}}</td>
-                    <td>{{i.services.name}}</td>
-                    <td>{{i.services.rate}}</td>
-                    <td>{{i.services.details}}</td>
-                    <td>{{i.booking_date}}</td>
-                    
-                </tr>
-                {% endfor %}
-            </table>
+        {% csrf_token %}
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <table class="table table-bordered text-center">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Sl.no</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Rate</th>
+                                <th scope="col">Details</th>
+                                <th scope="col">Booking Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in rdata %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ i.services.name }}</td>
+                                <td>{{ i.services.rate }}</td>
+                                <td>{{ i.services.details }}</td>
+                                <td>{{ i.booking_date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </form>
 </body>
 </html>
+{% endblock content %}

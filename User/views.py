@@ -3,6 +3,7 @@ from Guest.models import *
 from Seller.models import *
 from User.models import *
 from ServiceProvider.models import *
+from Admin.models import *
 # Create your views here.
 
 def userhome(request):
@@ -152,3 +153,24 @@ def viewservicebooking(request):
     userdata=tbl_newuser.objects.get(id=request.session["uid"])
     rdata=tbl_servicebooking.objects.filter(user=userdata)
     return render(request,"User/ViewServiceBooking.html",{'rdata':rdata})  
+
+def usercomplaint(request):
+    uregdata=tbl_newuser.objects.get(id=request.session['uid'])
+    comdata=tbl_complainttype.objects.all()
+    compdata=tbl_usercomplaint.objects.all()
+    if request.method=="POST":
+        com=tbl_complainttype.objects.get(id=request.POST.get("select_com"))
+        tbl_usercomplaint.objects.create(    
+            complainttitle = request.POST.get("txt_name"),
+            content = request.POST.get("txt_content"),
+            complainttype=com,
+            user=uregdata,
+
+        )
+        return render(request,"User/UserComplaint.html",{'uregdata':uregdata,'comdata':comdata,'compdata':compdata}) 
+    else:
+        return render(request,"User/UserComplaint.html",{'uregdata':uregdata,'comdata':comdata,'compdata':compdata})
+
+def DeleteComplaint(request,did):
+    tbl_usercomplaint.objects.get(id=did).delete()
+    return redirect("User:UserComplaint")        

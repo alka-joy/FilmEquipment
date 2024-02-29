@@ -21,3 +21,11 @@ class tbl_servicebooking(models.Model):
     booked_date=models.DateField()
     user=models.ForeignKey(tbl_newuser,on_delete=models.CASCADE)
     status=models.CharField(max_length=50)
+
+
+class tbl_usercomplaint(models.Model):  
+    complainttype=models.ForeignKey(tbl_complainttype,on_delete=models.CASCADE)
+    complainttitle=models.CharField(max_length=50)
+    content=models.CharField(max_length=50)
+    complaintdate=models.DateField(auto_now_add=True) 
+    user=models.ForeignKey(tbl_newuser,on_delete=models.SET_NULL,null=True)    

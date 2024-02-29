@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from .models import *
 from Guest.models import *
+from Seller.models import *
+from User.models import *
 # Create your views here.
 
 def dis(request):
@@ -159,3 +161,13 @@ def rejectseller(request,rid):
 
 def adminhome(request):
     return render(request,"Admin/AdminHome.html")
+
+
+def viewsellercomplaint(request):
+    rdata=tbl_sellercomplaint.objects.all()
+    return render(request,"Admin/ViewSellerComplaint.html",{'rdata':rdata})  
+
+
+def viewusercomplaint(request):
+    udata=tbl_usercomplaint.objects.all()
+    return render(request,"Admin/ViewUserComplaint.html",{'udata':udata})  

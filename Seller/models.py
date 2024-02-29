@@ -16,3 +16,11 @@ class tbl_rentitem(models.Model):
     stock=models.IntegerField()
     category=models.ForeignKey(tbl_rentcategory,on_delete=models.CASCADE)
     seller=models.ForeignKey(tbl_newseller,on_delete=models.SET_NULL,null=True)
+
+
+class tbl_sellercomplaint(models.Model):  
+    complainttype=models.ForeignKey(tbl_complainttype,on_delete=models.CASCADE)
+    complainttitle=models.CharField(max_length=50)
+    content=models.CharField(max_length=50)
+    complaintdate=models.DateField(auto_now_add=True) 
+    seller=models.ForeignKey(tbl_newseller,on_delete=models.SET_NULL,null=True)        

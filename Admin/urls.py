@@ -25,5 +25,7 @@ urlpatterns = [
     path('acceptedseller/<int:aid>',views.acceptseller,name="acceptseller"),
     path('rejectedseller/<int:rid>',views.rejectseller,name="rejectseller"),
     path('adminhome/',views.adminhome,name="AdminHome"),
+    path('viewsellercomplaint/',views.viewsellercomplaint,name="ViewSellerComplaint"),
+    path('viewusercomplaint/',views.viewusercomplaint,name="ViewUserComplaint"),
     
 ]

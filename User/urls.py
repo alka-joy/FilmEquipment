@@ -20,5 +20,6 @@ urlpatterns = [
     path('searchserviceprovider/',views.searchserviceprovider,name="SearchServiceProvider"),
     path('servicebooking/<int:bid>',views.servicebooking,name="ServiceBooking"),
     path('viewservicebooking/',views.viewservicebooking,name="ViewServiceBooking"),
-    
+    path('usercomplaint/',views.usercomplaint,name="UserComplaint"),
+    path('del_complaint/<int:did>',views.DeleteComplaint,name="del_complaint"),
 ]    

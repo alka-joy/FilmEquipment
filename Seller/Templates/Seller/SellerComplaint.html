@@ -1,0 +1,69 @@
+{% extends 'User/header.html'%}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center><h1>Complaint</h1></center>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="container mt-4">
+            <table class="table table-bordered">
+                <tr>
+                    <td>Complaint Type</td>
+                    <td>
+                        <select class="form-control" name="select_com" id="">
+                            <option>--select--</option>
+                            {% for i in comdata %}
+                                <option value="{{ i.id }}">{{ i.complaint_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Complaint Title</td>
+                    <td><input type="text" class="form-control" name="txt_name" id=""></td>
+                </tr>
+                <tr>
+                    <td>Content</td>
+                    <td><input type="text" class="form-control" name="txt_content" id=""></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <button type="submit" class="btn btn-primary" name="submit">Send</button>
+                        <button type="submit" class="btn btn-secondary" name="cancel">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <table class="table table-bordered table-striped" align="center">
+        <thead>
+            <tr>
+                <th>Sl.no</th>
+                <th>Complaint Type</th>
+                <th>Complaint Title</th>
+                <th>Content</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in compdata %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.complainttype.complaint_name}}</td>
+                    <td>{{i.complainttitle}}</td>
+                    <td>{{i.content}}</td>
+                    <td><a href="{% url 'Seller:del_complaint' i.id %}" class="btn btn-danger btn-sm">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+{% endblock content %}
