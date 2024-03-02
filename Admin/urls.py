@@ -27,5 +27,7 @@ urlpatterns = [
     path('adminhome/',views.adminhome,name="AdminHome"),
     path('viewsellercomplaint/',views.viewsellercomplaint,name="ViewSellerComplaint"),
     path('viewusercomplaint/',views.viewusercomplaint,name="ViewUserComplaint"),
+    path('viewuserfeedback/',views.viewuserfeedback,name="ViewUserFeedback"),
+    path('viewsellerfeedback/',views.viewsellerfeedback,name="ViewSellerFeedback"),
     
 ]

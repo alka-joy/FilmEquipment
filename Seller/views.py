@@ -113,3 +113,19 @@ def sellercomplaint(request):
 def DeleteComplaint(request,did):
     tbl_sellercomplaint.objects.get(id=did).delete()
     return redirect("Seller:SellerComplaint")        
+
+
+def sellerfeedback(request):
+    feeddata=tbl_sellerfeedback.objects.all()
+    if request.method=="POST":
+        tbl_sellerfeedback.objects.create(    
+            feedback = request.POST.get("txt_feedback"),
+
+        )
+        return render(request,"Seller/SellerFeedBack.html",{'feeddata':feeddata}) 
+    else:
+        return render(request,"Seller/SellerFeedBack.html",{'feeddata':feeddata})
+
+def DeleteFeedback(request,did):
+    tbl_sellerfeedback.objects.get(id=did).delete()
+    return redirect("Seller:SellerFeedBack")

@@ -1,0 +1,52 @@
+{% extends 'User/header.html'%}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center><h1>Feed Back</h1></center>
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            <table class="table table-bordered" align="center">
+                <tr>
+                    <td>Feedback</td>
+                    <td><input type="text" class="form-control" name="txt_feedback" value="{{edis.feedback}}"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <button type="submit" class="btn btn-primary" name="btn_save">Save</button>
+                        <button type="reset" class="btn btn-secondary" name="btn_cancel">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Sl.no</th>
+                    <th>Feed Back</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in feeddata %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.feedback }}</td>
+                    <td>
+                        <a href="{% url 'User:del_feedback' i.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</html>
+{% endblock content %}

@@ -13,5 +13,7 @@ urlpatterns = [
     path('del_rentitem/<int:did>',views.DeleteRentItem,name="del_rentitem"),
     path('sellercomplaint/',views.sellercomplaint,name="SellerComplaint"),
     path('del_complaint/<int:did>',views.DeleteComplaint,name="del_complaint"),
-    
+    path('sellerfeedback/',views.sellerfeedback,name="SellerFeedBack"),
+    path('del_feedback/<int:did>',views.DeleteFeedback,name="del_feedback"),
+
 ]

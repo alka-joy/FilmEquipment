@@ -29,3 +29,8 @@ class tbl_usercomplaint(models.Model):
     content=models.CharField(max_length=50)
     complaintdate=models.DateField(auto_now_add=True) 
     user=models.ForeignKey(tbl_newuser,on_delete=models.SET_NULL,null=True)    
+
+class tbl_userfeedback(models.Model):  
+    feedback=models.CharField(max_length=50)
+    feedbackdate=models.DateField(auto_now_add=True) 
+    

@@ -171,3 +171,11 @@ def viewsellercomplaint(request):
 def viewusercomplaint(request):
     udata=tbl_usercomplaint.objects.all()
     return render(request,"Admin/ViewUserComplaint.html",{'udata':udata})  
+
+def viewuserfeedback(request):
+    udata=tbl_userfeedback.objects.all()
+    return render(request,"Admin/ViewUserFeedback.html",{'udata':udata})  
+
+def viewsellerfeedback(request):
+    udata=tbl_sellerfeedback.objects.all()
+    return render(request,"Admin/ViewSellerFeedback.html",{'udata':udata})  

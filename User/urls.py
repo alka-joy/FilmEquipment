@@ -22,4 +22,7 @@ urlpatterns = [
     path('viewservicebooking/',views.viewservicebooking,name="ViewServiceBooking"),
     path('usercomplaint/',views.usercomplaint,name="UserComplaint"),
     path('del_complaint/<int:did>',views.DeleteComplaint,name="del_complaint"),
+    path('userfeedback/',views.userfeedback,name="UserFeedBack"),
+    path('del_feedback/<int:did>',views.DeleteFeedback,name="del_feedback"),
+
 ]    

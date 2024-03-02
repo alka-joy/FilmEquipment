@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 <body>
-    <center><h1>User Complaint</h1></center>
+    <center><h1>Seller Feedback</h1></center>
     <form action="" method="post" id="" enctype="multipart/form-data">
         {%csrf_token %}
         <div class="container mt-5">
@@ -17,18 +17,14 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>Sl.no</th>
-                        <th>Complaint Type</th>
-                        <th>Complaint Title</th>
-                        <th>Content</th>
+                        <th>Feed Back</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for i in udata %}
                         <tr>
                             <td>{{forloop.counter}}</td>
-                            <td>{{i.complainttype.complaint_name}}</td>
-                            <td>{{i.complainttitle}}</td>
-                            <td>{{i.content}}</td>
+                            <td>{{i.feedback}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

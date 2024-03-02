@@ -24,3 +24,9 @@ class tbl_sellercomplaint(models.Model):
     content=models.CharField(max_length=50)
     complaintdate=models.DateField(auto_now_add=True) 
     seller=models.ForeignKey(tbl_newseller,on_delete=models.SET_NULL,null=True)        
+
+
+class tbl_sellerfeedback(models.Model):  
+    feedback=models.CharField(max_length=50)
+    feedbackdate=models.DateField(auto_now_add=True) 
+    

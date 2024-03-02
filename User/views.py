@@ -174,3 +174,18 @@ def usercomplaint(request):
 def DeleteComplaint(request,did):
     tbl_usercomplaint.objects.get(id=did).delete()
     return redirect("User:UserComplaint")        
+
+def userfeedback(request):
+    feeddata=tbl_userfeedback.objects.all()
+    if request.method=="POST":
+        tbl_userfeedback.objects.create(    
+            feedback = request.POST.get("txt_feedback"),
+
+        )
+        return render(request,"User/UserFeedBack.html",{'feeddata':feeddata}) 
+    else:
+        return render(request,"User/UserFeedBack.html",{'feeddata':feeddata})
+
+def DeleteFeedback(request,did):
+    tbl_userfeedback.objects.get(id=did).delete()
+    return redirect("User:UserFeedBack")     
