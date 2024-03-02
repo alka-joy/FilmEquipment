@@ -52,6 +52,7 @@ def login(request):
         ucount=tbl_newuser.objects.filter(email=Email,password=Password).count()
         scount=tbl_newseller.objects.filter(email=Email,password=Password,status=1).count()
         spcount=tbl_serviceprovider.objects.filter(email=Email,password=Password).count()
+        acount=tbl_adminlogin.objects.filter(email=Email,password=Password).count()
         if ucount > 0:
             userdata=tbl_newuser.objects.get(email=Email,password=Password)
             request.session['uid']=userdata.id
@@ -63,7 +64,11 @@ def login(request):
         elif spcount>0:
             servicedata=tbl_serviceprovider.objects.get(email=Email,password=Password)
             request.session['spid']=servicedata.id
-            return redirect('ServiceProvider:ServiceProviderHome')  
+            return redirect('ServiceProvider:ServiceProviderHome')
+        elif acount>0:
+            addata=tbl_adminlogin.objects.get(email=Email,password=Password)
+            request.session['aid']=addata.id
+            return redirect('Admin:AdminHome')  
         else:
             msg = "Invalid Credentials!!"
             return render(request,"Guest/Login.html",{'msg':msg})

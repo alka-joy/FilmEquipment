@@ -134,7 +134,19 @@ def viewservices(request,vid):
 def searchserviceprovider(request):
     pdata=tbl_district.objects.all()
     rdata=tbl_serviceprovider.objects.all()
-    return render(request,"User/SearchServiceProvider.html",{'pdata':pdata,'rata':rdata})  
+    parray=[]
+    ar=[1,2,3,4,5]
+    for i in rdata:
+        sdata=tbl_serviceprovider.objects.get(id=i.id)
+        totaldatacount=tbl_userrating.objects.filter(serviceprovider=sdata).count()
+        totaldata=tbl_userrating.objects.filter(serviceprovider=sdata)
+        sumdata=0
+        for j in  totaldata:
+            sumdata=sumdata+int(j.rating_data)
+        avg=sumdata//totaldatacount
+        parray.append(avg)
+    datas=zip(rdata,parray)
+    return render(request,"User/SearchServiceProvider.html",{'pdata':pdata,'rata':datas,'ar':ar})  
 
 def servicebooking(request,bid):
     userdata=tbl_newuser.objects.get(id=request.session['uid'])
@@ -145,9 +157,9 @@ def servicebooking(request,bid):
             services=bdata,
             user=userdata,
         )
-        return render(request,"User/ServiceBooking.html",{'bdata':bdata,'userdata':userdata}) 
+        return render(request,"User/Booking.html",{'bdata':bdata,'userdata':userdata}) 
     else:
-        return render(request,"User/ServiceBooking.html",{'bdata':bdata,'userdata':userdata}) 
+        return render(request,"User/Booking.html",{'bdata':bdata,'userdata':userdata}) 
 
 def viewservicebooking(request):
     userdata=tbl_newuser.objects.get(id=request.session["uid"])
@@ -188,4 +200,32 @@ def userfeedback(request):
 
 def DeleteFeedback(request,did):
     tbl_userfeedback.objects.get(id=did).delete()
-    return redirect("User:UserFeedBack")     
+    return redirect("User:UserFeedBack")   
+
+def starrating(request,mid):
+    parray=[1,2,3,4,5]
+    wdata=tbl_serviceprovider.objects.get(id=mid)
+    counts=0
+    counts=stardata=tbl_userrating.objects.filter(serviceprovider=wdata).count()
+    if counts>0:
+        res=0
+        stardata=tbl_userrating.objects.filter(serviceprovider=wdata).order_by('-datetime')
+        for i in stardata:
+            res=res+i.rating_data
+        avg=res//counts
+        return render(request,"User/ShopRating.html",{'mid':mid,'data':stardata,'ar':parray,'avg':avg,'count':counts})
+    else:
+         return render(request,"User/ShopRating.html",{'mid':mid})
+
+def ajaxstar(request):
+    parray=[1,2,3,4,5]
+    rating_data=request.GET.get('rating_data')
+    user_name=request.GET.get('user_name')
+    user_review=request.GET.get('user_review')
+    workid=request.GET.get('workid')
+    
+    wdata=tbl_serviceprovider.objects.get(id=workid)
+    tbl_userrating.objects.create(user_name=user_name,user_review=user_review,rating_data=rating_data,serviceprovider=wdata)
+    stardata=tbl_userrating.objects.filter(serviceprovider=wdata).order_by('-datetime')
+    return render(request,"User/AjaxRating.html",{'data':stardata,'ar':parray})  
+

@@ -30,3 +30,8 @@ class tbl_serviceprovider(models.Model):
     address=models.TextField()
     password=models.CharField(max_length=50)
     district=models.ForeignKey(tbl_district,on_delete=models.CASCADE)
+
+class tbl_adminlogin(models.Model):
+    name=models.CharField(max_length=15)
+    email=models.CharField(max_length=15)
+    password=models.CharField(max_length=15)

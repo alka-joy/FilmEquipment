@@ -32,6 +32,7 @@
                                 <td>{{ i.services.rate }}</td>
                                 <td>{{ i.services.details }}</td>
                                 <td>{{ i.booking_date }}</td>
+                                <td><a href="{% url 'User:shoprating' i.services.serviceprovider.id %}">Rate Now</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

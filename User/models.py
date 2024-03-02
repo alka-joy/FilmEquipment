@@ -33,4 +33,11 @@ class tbl_usercomplaint(models.Model):
 class tbl_userfeedback(models.Model):  
     feedback=models.CharField(max_length=50)
     feedbackdate=models.DateField(auto_now_add=True) 
-    
+
+class tbl_userrating(models.Model):
+    rating_data=models.IntegerField()
+    user_name=models.CharField(max_length=500)
+    user_review=models.CharField(max_length=500)
+    datetime=models.DateTimeField(auto_now_add=True)
+    serviceprovider=models.ForeignKey(tbl_serviceprovider,on_delete=models.SET_NULL,null=True)
+    seller=models.ForeignKey(tbl_newseller,on_delete=models.SET_NULL,null=True)

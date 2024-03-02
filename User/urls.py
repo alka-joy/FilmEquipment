@@ -25,4 +25,7 @@ urlpatterns = [
     path('userfeedback/',views.userfeedback,name="UserFeedBack"),
     path('del_feedback/<int:did>',views.DeleteFeedback,name="del_feedback"),
 
+    path('shopstar/<int:mid>',views.starrating,name="shoprating"),
+    path('ajaxstar/',views.ajaxstar,name="ajaxstar"),
+
 ]    

@@ -49,15 +49,17 @@ def changepassword(request):
         return render(request,"ServiceProvider/ChangePassword.html")
     
 def services(request):
+    serviceproviderdata=tbl_serviceprovider.objects.get(id=request.session["spid"])
     disdata=tbl_service.objects.all()
-    data=tbl_services.objects.all()
+    data=tbl_services.objects.filter(serviceprovider=serviceproviderdata)
     if request.method=="POST":
         dis=tbl_service.objects.get(id=request.POST.get("select_ser"))
         tbl_services.objects.create(
         name = request.POST.get("txt_name"),
         rate = request.POST.get("txt_rate"),
         details = request.POST.get("txt_detail"),
-        service=dis)
+        service=dis,
+        serviceprovider=serviceproviderdata)
         return render(request,"ServiceProvider/Services.html",{'disdata':disdata,'data':data})
     else:
         return render(request,"ServiceProvider/Services.html",{'disdata':disdata,'data':data})
