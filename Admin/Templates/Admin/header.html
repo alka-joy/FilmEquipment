@@ -68,7 +68,7 @@
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
-                            <div class="search_bar dropdown">
+                            <!-- <div class="search_bar dropdown">
                                 <span class="search_icon p-3 c-pointer" data-toggle="dropdown">
                                     <i class="mdi mdi-magnify"></i>
                                 </span>
@@ -77,7 +77,7 @@
                                         <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                                     </form>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <ul class="navbar-nav header-right">
@@ -146,15 +146,12 @@
                                     <i class="mdi mdi-account"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="./app-profile.html" class="dropdown-item">
+                                    <a href="{% url 'Admin:AdminHome' %}" class="dropdown-item">
                                         <i class="icon-user"></i>
                                         <span class="ml-2">Profile </span>
                                     </a>
-                                    <a href="./email-inbox.html" class="dropdown-item">
-                                        <i class="icon-envelope-open"></i>
-                                        <span class="ml-2">Inbox </span>
-                                    </a>
-                                    <a href="./page-login.html" class="dropdown-item">
+                                    
+                                    <a href="{% url 'Admin:logout' %}" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Logout </span>
                                     </a>
@@ -176,25 +173,30 @@
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="./index.html">Dashboard 1</a></li>
-                            <li><a href="./index2.html">Dashboard 2</a></li>
-                        </ul>
+                    <li><a href="{% url 'Admin:AdminHome' %}" aria-expanded="false"><i
+                                class="icon icon-single-04"></i><span class="nav-text">Home</span></a>
                     </li>
-                    <li class="nav-label">Profile</li>
+                    <!-- <li class="nav-label">Profile</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-app-store"></i><span class="nav-text">Profile</span></a>
                         <ul aria-expanded="false">
                             
                             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="./email-compose.html">Compose</a></li>
-                                    <li><a href="./email-inbox.html">Inbox</a></li>
-                                    <li><a href="./email-read.html">Read</a></li>
-                                </ul>
-                            </li>
+                                <ul aria-expanded="false"> -->
+                                    <li><a href="{% url 'Admin:District' %}">Add District</a></li>
+                                    <li><a href="{% url 'Admin:Place' %}">Add Place</a></li>
+                                    <li><a href="{% url 'Admin:Service' %}">Add service</a></li>
+                                    <li><a href="{% url 'Admin:Complaint' %}">Complaint Type</a></li>
+                                    <li><a href="{% url 'Admin:ViewNewSeller' %}">View Seller</a></li>
+                                    <li><a href="{% url 'Admin:AcceptedSellerList' %}">Accepted Seller</a></li>
+                                    <li><a href="{% url 'Admin:RejectedSellerList' %}">Rejected Seller</a></li>
+                                    <li><a href="{% url 'Admin:Category' %}">Add Rent Category</a></li>
+                                    <li><a href="{% url 'Admin:ViewUserComplaint' %}">User Complaint</a></li>
+                                    <li><a href="{% url 'Admin:ViewSellerComplaint' %}">Seller Complaint</a></li>
+                                    <li><a href="{% url 'Admin:ViewUserFeedback' %}">User Feedback</a></li>
+                                    <li><a href="{% url 'Admin:ViewUserFeedback' %}">Seller Feedback</a></li>
+                                <!-- </ul> -->
+                            <!-- </li>
                             <li><a href="./app-calender.html">Calendar</a></li>
                         </ul>
                     </li>
@@ -284,7 +286,7 @@
                             </li>
                             <li><a href="./page-lock-screen.html">Lock Screen</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
 

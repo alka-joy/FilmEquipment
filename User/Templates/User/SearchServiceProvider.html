@@ -1,14 +1,29 @@
+{% extends 'User/header.html'%}
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 </head>
 <body>
-    <center><h1>Search ServiceProvider</h1></center>
+    <center><h1>Search Service Provider</h1></center>
     <br><br><br>
-    <form action="" method="post" id="Searchseller" data-places-url="{% url 'Guest:AjaxPlace' %}" enctype="multipart/form-data">
+    <form action="" method="post" id="Searchseller" data-places-url="{% url 'Guest:AjaxPlace' %}" data-serviceprovider-url="{% url 'User:ajaxserviceprovider' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -18,7 +33,7 @@
                             <td>District</td>
                             <td>
                                 <select class="form-control" name="select_dis" id="sel_district">
-                                    <option>--select--</option>
+                                    <option value="">--select--</option>
                                     {% for i in pdata %}
                                     <option value="{{ i.id }}">{{ i.district_name }}</option>
                                     {% endfor %}
@@ -29,7 +44,7 @@
                             <td>Place</td>
                             <td>
                                 <select class="form-control" name="select_place" id="sel_place">
-                                    <option>--select--</option>
+                                    <option value="">--select--</option>
                                 </select>
                             </td>
                         </tr>
@@ -39,8 +54,8 @@
         </div>
     </form>
     
-    <div class="container mt-5">
-        <div class="row">
+    <div class="container mt-5" id="results">
+        <div class="row" >
             {% for i,j in rata %}
             <div class="col-md-3">
                 <div class="card" style="border: 1px solid black; margin: 22px; padding: 20px;">
@@ -48,7 +63,11 @@
                         <h5 class="card-title">{{ i.name }}</h5>
                         <p class="card-text">{{ i.contact }}</p>
                         <p class="card-text">{{ i.email }}</p>
-                        
+                        <p>{% for k in ar %} {% if k <= j %}
+                            <i class="fas fa-star text-warning"></i>
+                            {% else %}
+                            <i class="fas fa-star star-light"></i>
+                            {% endif %} {% endfor %}</p>
                         <a href="{% url 'User:ViewServices' i.id %}" class="btn btn-primary">View Services</a>
                     </div>
                 </div>
@@ -66,13 +85,35 @@
     <script>
         $("#sel_district").change(function () {
             var did = $(this).val();
+            var pid=document.getElementById("sel_place").value;
             var ur = $("#Searchseller").attr("data-places-url");
             $.ajax({
                 url: ur,
                 data: { Dist: did, },
                 success: function (data) { 
                     $("#sel_place").html(data);
+                    var ur = $("#Searchseller").attr("data-serviceprovider-url");
+            $.ajax({
+                url: ur,
+                data: { did: did,pid:pid },
+                success: function (data) { 
+                    $("#results").html(data);
+                },
+            });
+                },
+            });
+        });
+        $("#sel_place").change(function () {
+            var pid = $(this).val();
+            var did=document.getElementById("sel_district").value;
+            var ur = $("#Searchseller").attr("data-serviceprovider-url");
+            $.ajax({
+                url: ur,
+                data: { did: did,pid:pid },
+                success: function (data) { 
+                    $("#results").html(data);
                 },
             });
         });
 </script>
+{% endblock content %}

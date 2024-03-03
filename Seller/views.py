@@ -46,11 +46,13 @@ def changepassword(request):
         msg="Password changed"
         return render(request,"Seller/ChangePassword.html")
     
-def productgallery(request):
+def productgallery(request,pid):
+    productdata=tbl_rentitem.objects.get(id=pid)
     if request.method=="POST" and request.FILES:
         tbl_productgallery.objects.create(
         caption = request.POST.get("txt_caption"),
-        image = request.FILES.get("txt_img"))
+        image = request.FILES.get("txt_img")),
+        rentitem=productdata
         return render(request,"Seller/ProductGallery.html")
     else:
         return render(request,"Seller/ProductGallery.html")
@@ -129,3 +131,7 @@ def sellerfeedback(request):
 def DeleteFeedback(request,did):
     tbl_sellerfeedback.objects.get(id=did).delete()
     return redirect("Seller:SellerFeedBack")
+
+def logout(request):
+    del request.session["sid"]
+    return redirect("Guest:Login")

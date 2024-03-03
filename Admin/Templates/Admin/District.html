@@ -17,8 +17,8 @@
             {% csrf_token %}
             <table class="table table-bordered" align="center">
                 <tr>
-                    <td>District</td>
-                    <td><input type="text" class="form-control" name="txt_district" value="{{edis.district_name}}"></td>
+                    <td>District <span style="color: red;">*</span></td>
+                    <td><input type="text" class="form-control" name="txt_district" value="{{edis.district_name}}" required autocomplete="off"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">

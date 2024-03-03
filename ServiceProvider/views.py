@@ -69,6 +69,9 @@ def DeleteServices(request,did):
     tbl_services.objects.get(id=did).delete()
     return redirect("ServiceProvider/Services")        
 
+def logout(request):
+    del request.session["spid"]
+    return redirect("Guest:Login")
 
 def EditServices(request,eid):
     dis=tbl_services.objects.get(id=eid)

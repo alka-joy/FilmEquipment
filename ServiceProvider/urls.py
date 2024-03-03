@@ -13,5 +13,6 @@ urlpatterns = [
     path('del_services/<int:did>',views.DeleteServices,name="del_services"),
     path('edit_services/<int:eid>',views.EditServices,name="edit_services"),
     path('viewbooking/',views.viewbooking,name="ViewBooking"),
+    path('logout/',views.logout,name="logout"),
 
 ]

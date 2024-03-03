@@ -73,7 +73,8 @@
 <td>{{i.image}}</td>
 <td>{{i.rate}}</td>
 <td>{{i.stock}}</td>
-<td><a href="{% url 'Seller:del_rentitem' i.id %}">Delete</a></td>
+<td><a href="{% url 'Seller:del_rentitem' i.id %}">Delete</a>
+    <a href="{% url 'Seller:ProductGallery' i.id %}">Product Gallery</a></td>
    
         
             </tr>

@@ -128,7 +128,8 @@ def payment(request):
     return render(request,"User/Payment.html",{'amount':data})
 
 def viewservices(request,vid):
-    rdata=tbl_services.objects.all()
+    sdata=tbl_serviceprovider.objects.get(id=vid)
+    rdata=tbl_services.objects.filter(serviceprovider=sdata)
     return render(request,"User/ViewServices.html",{'rdata':rdata})  
 
 def searchserviceprovider(request):
@@ -143,7 +144,10 @@ def searchserviceprovider(request):
         sumdata=0
         for j in  totaldata:
             sumdata=sumdata+int(j.rating_data)
-        avg=sumdata//totaldatacount
+        if totaldatacount>0:
+            avg=sumdata//totaldatacount
+        else:
+            avg=0
         parray.append(avg)
     datas=zip(rdata,parray)
     return render(request,"User/SearchServiceProvider.html",{'pdata':pdata,'rata':datas,'ar':ar})  
@@ -229,3 +233,96 @@ def ajaxstar(request):
     stardata=tbl_userrating.objects.filter(serviceprovider=wdata).order_by('-datetime')
     return render(request,"User/AjaxRating.html",{'data':stardata,'ar':parray})  
 
+def ajaxserviceprovider(request):
+    if request.GET.get('pid')!="":
+        placedata=tbl_place.objects.get(id=request.GET.get('pid'))
+        rdata=tbl_serviceprovider.objects.filter(place=placedata)
+        parray=[]
+        ar=[1,2,3,4,5]
+        for i in rdata:
+            sdata=tbl_serviceprovider.objects.get(id=i.id)
+            totaldatacount=tbl_userrating.objects.filter(serviceprovider=sdata).count()
+            totaldata=tbl_userrating.objects.filter(serviceprovider=sdata)
+            sumdata=0
+            for j in  totaldata:
+                sumdata=sumdata+int(j.rating_data)
+            if totaldatacount>0:
+                avg=sumdata//totaldatacount
+            else:
+                avg=0
+            parray.append(avg)
+        datas=zip(rdata,parray)
+        return render(request,"User/AjaxServiceprovider.html",{'rata':datas,'ar':ar})
+    else:
+        placedata=tbl_district.objects.get(id=request.GET.get('did'))
+        rdata=tbl_serviceprovider.objects.filter(place__district=placedata)
+        parray=[]
+        ar=[1,2,3,4,5]
+        for i in rdata:
+            sdata=tbl_serviceprovider.objects.get(id=i.id)
+            totaldatacount=tbl_userrating.objects.filter(serviceprovider=sdata).count()
+            totaldata=tbl_userrating.objects.filter(serviceprovider=sdata)
+            sumdata=0
+            for j in  totaldata:
+                sumdata=sumdata+int(j.rating_data)
+            if totaldatacount>0:
+                avg=sumdata//totaldatacount
+            else:
+                avg=0
+            parray.append(avg)
+        datas=zip(rdata,parray)
+        return render(request,"User/AjaxServiceprovider.html",{'rata':datas,'ar':ar})
+
+
+def ajaxseller(request):
+    if request.GET.get('pid')!="":
+        placedata=tbl_place.objects.get(id=request.GET.get('pid'))
+        ddata=tbl_newseller.objects.filter(place=placedata)
+        return render(request,"User/AjaxSeller.html",{'data':ddata})
+    else:
+        placedata=tbl_district.objects.get(id=request.GET.get('did'))
+        ddata=tbl_newseller.objects.filter(place__district=placedata)
+        return render(request,"User/AjaxSeller.html",{'data':ddata})
+
+def bill(request):
+    if 'uid' in request.session:
+        usr=tbl_user.objects.get(id=request.session["uid"])
+        total=0
+        if 'bookings' in request.session and 'mbookings' in request.session:
+            rand=random.randint(100000,999999)
+            cdate=date.today()
+            bookdata=tbl_wbooking.objects.get(id=request.session["bookings"])
+            mbookdata=tbl_mbooking.objects.get(id=request.session["mbookings"])
+            mcartdata=tbl_mcart.objects.filter(mbooking=mbookdata)
+            wcartdata=tbl_wcart.objects.filter(wbooking=bookdata)
+            for i in wcartdata:
+                total=total+(int(i.qty)*int(i.works.rate))
+            for j in mcartdata:
+                total=total+(int(j.qty)*int(j.material.rate))
+            
+            return render(request,"User/bill.html",{'mdata':mcartdata,'wdata':wcartdata,'rand':rand,'cdate':cdate,'usr':usr,'total':total})
+        elif 'bookings' in request.session:
+            rand=random.randint(100000,999999)
+            cdate=date.today()
+            bookdata=tbl_wbooking.objects.get(id=request.session["bookings"])
+            wcartdata=tbl_wcart.objects.filter(wbooking=bookdata)
+            for i in wcartdata:
+                total=total+(int(i.qty)*int(i.works.rate))
+            
+            return render(request,"User/bill.html",{'wdata':wcartdata,'rand':rand,'cdate':cdate,'usr':usr,'total':total})
+        elif 'mbookings' in request.session:
+            rand=random.randint(100000,999999)
+            cdate=date.today()
+            mbookdata=tbl_mbooking.objects.get(id=request.session["mbookings"])
+            mcartdata=tbl_mcart.objects.filter(mbooking=mbookdata)
+            for i in mcartdata:
+                total=total+(int(i.qty)*int(i.material.rate))
+            return render(request,"User/bill.html",{'mdata':mcartdata,'rand':rand,'cdate':cdate,'usr':usr,'total':total})
+        else:
+            return render(request,"User/bill.html")
+    else:
+        return redirect("Guest:login")
+
+def logout(request):
+    del request.session["uid"]
+    return redirect("Guest:Login")

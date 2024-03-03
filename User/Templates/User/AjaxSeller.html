@@ -1,0 +1,19 @@
+<div class="row" id="results">
+    {% for i in data %}
+    <div class="col-md-3">
+        <div class="card" style="border: 1px solid black; margin: 22px; padding: 20px;">
+            <img src="{{ i.photo.url }}" class="card-img-top" alt="seller image" width="100px" height="100px">
+            <div class="card-body">
+                <h5 class="card-title">{{ i.name }}</h5>
+                <p class="card-text">{{ i.contact }}</p>
+                <p class="card-text">{{ i.email }}</p>
+                <a href="{% url 'User:ViewProducts' i.id %}" class="btn btn-primary">View Product</a>
+            </div>
+        </div>
+    </div>
+    {% if forloop.counter|divisibleby:4 %}
+</div>
+<div class="row">
+    {% endif %}
+    {% endfor %}
+</div>

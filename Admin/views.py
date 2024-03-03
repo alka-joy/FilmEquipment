@@ -179,3 +179,6 @@ def viewuserfeedback(request):
 def viewsellerfeedback(request):
     udata=tbl_sellerfeedback.objects.all()
     return render(request,"Admin/ViewSellerFeedback.html",{'udata':udata})  
+def logout(request):
+    del request.session["aid"]
+    return redirect("Guest:Login")

@@ -17,7 +17,7 @@
             <table class="table table-bordered">
                 <tr>
                     <td>Name</td>
-                    <td><input type="text" name="txt_name" class="form-control"></td>
+                    <td><input type="text" name="txt_name" class="form-control" required autocomplete="off"></td>
                 </tr>
                 <tr>
                     <td>Contact</td>
@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <td>Email</td>
-                    <td><input type="text" name="txt_email" class="form-control" onchange="emailval(this)"><span id="content"></span></td>
+                    <td><input type="text" name="txt_email" class="form-control" onchange="emailval(this)"><span id="content" required autocomplete="off"></span></td>
                 </tr>
                 <tr>
                     <td>Gender</td>
@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                     <td>Address</td>
-                    <td><textarea name="txt_add" class="form-control" cols="30" rows="10"></textarea></td>
+                    <td><textarea name="txt_add" class="form-control" cols="30" rows="10" required autocomplete="off"></textarea></td>
                 </tr>
                 <tr>
                     <td>District</td>
@@ -68,11 +68,11 @@
                 </tr>
                 <tr>
                     <td>Password</td>
-                    <td><input type="password" name="txt_pass" class="form-control"></td>
+                    <td><input type="password" name="txt_pass" class="form-control" required autocomplete="off"></td>
                 </tr>
                 <tr>
                     <td>Confirm Password</td>
-                    <td><input type="password" name="txt_conform" class="form-control"></td>
+                    <td><input type="password" name="txt_conform" class="form-control" required autocomplete="off"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">

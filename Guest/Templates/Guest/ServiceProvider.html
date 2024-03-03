@@ -12,13 +12,13 @@
     <center><h3>Service Provider Registration</h3></center>
     <br><br><br>
     <br><br>
-    <form action="" method="post">
+    <form action="" method="post" id="SellerForm" data-places-url="{% url 'Guest:AjaxPlace' %}">
         {% csrf_token %}
         <div class="container">
             <table class="table table-bordered">
                 <tr>
                     <td>Name</td>
-                    <td><input type="text" name="txt_name" id="" class="form-control"></td>
+                    <td><input type="text" name="txt_name" id="" class="form-control" required autocomplete="off"></td>
                 </tr>
                 <tr>
                     <td>Contact</td>
@@ -36,7 +36,7 @@
                 </tr>
                 <tr>
                     <td>Address</td>
-                    <td><textarea name="txt_add" id="" cols="30" rows="10" class="form-control"></textarea></td>
+                    <td><textarea name="txt_add" id="" cols="30" rows="10" class="form-control" required autocomplete="off"></textarea></td>
                 </tr>
                 <tr>
                     <td>District</td>
@@ -49,13 +49,21 @@
                         </select>
                     </td>
                 </tr>
+                <tr> 
+                    <td>Place</td>
+                    <td>
+                        <select name="select_place" id="sel_place" class="form-control">
+                            <option>--select--</option>
+                        </select>
+                    </td>
+                </tr>
                 <tr>
                     <td>Password</td>
-                    <td><input type="password" name="txt_pass" id="" class="form-control"></td>
+                    <td><input type="password" name="txt_pass" id="" class="form-control" required autocomplete="off"></td>
                 </tr>
                 <tr>
                     <td>Confirm Password</td>
-                    <td><input type="password" name="txt_conform" id="" class="form-control"></td>
+                    <td><input type="password" name="txt_conform" id="" class="form-control" required autocomplete="off"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
@@ -68,4 +76,18 @@
     </form>
 </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $("#sel_district").change(function () {
+            var did = $(this).val();
+            var ur = $("#SellerForm").attr("data-places-url");
+            $.ajax({
+                url: ur,
+                data: { Dist: did, },
+                success: function (data) { 
+                    $("#sel_place").html(data);
+                },
+            });
+        });
+</script>
 {% endblock content %}

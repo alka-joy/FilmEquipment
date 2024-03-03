@@ -81,14 +81,16 @@ def index(request):
 def serviceprovider(request):
     disdata=tbl_district.objects.all()
     if request.method=="POST":
-        dis=tbl_district.objects.get(id=request.POST.get("select_dis"))
+        placeid=tbl_place.objects.get(id=request.POST.get("select_place"))
         tbl_serviceprovider.objects.create(
         name = request.POST.get("txt_name"),
         contact = request.POST.get("txt_con"),
         email = request.POST.get("txt_email"),
         address = request.POST.get("txt_add"),
         password = request.POST.get("txt_pass"),
-        district=dis)
+        place = placeid,)
         return render(request,"Guest/ServiceProvider.html",{'disdata':disdata})
     else:
         return render(request,"Guest/ServiceProvider.html",{'disdata':disdata})
+
+

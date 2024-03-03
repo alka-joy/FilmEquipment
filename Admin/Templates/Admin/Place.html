@@ -16,10 +16,10 @@
             {% csrf_token %}
             <table class="table table-bordered" align="center">
                 <tr>
-                    <td>District</td>
+                    <td>District<span style="color: red;">*</span></td>
                     <td>
-                        <select class="form-control" name="select_dis" id="">
-                            <option>--select--</option>
+                        <select class="form-control" name="select_dis" id="" required>
+                            <option value="">--select--</option>
                             {% for i in disdata %}
                             <option value="{{ i.id }}">{{ i.district_name }}</option>
                             {% endfor %}
@@ -27,8 +27,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Place</td>
-                    <td><input type="text" class="form-control" name="txt_place" id=""></td>
+                    <td>Place<span style="color: red;">*</span></td>
+                    <td><input type="text" class="form-control" name="txt_place" id="" required autocomplete="off"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">

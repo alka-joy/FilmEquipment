@@ -24,8 +24,12 @@ urlpatterns = [
     path('del_complaint/<int:did>',views.DeleteComplaint,name="del_complaint"),
     path('userfeedback/',views.userfeedback,name="UserFeedBack"),
     path('del_feedback/<int:did>',views.DeleteFeedback,name="del_feedback"),
-
     path('shopstar/<int:mid>',views.starrating,name="shoprating"),
     path('ajaxstar/',views.ajaxstar,name="ajaxstar"),
+    path('ajaxserviceprovider/',views.ajaxserviceprovider,name="ajaxserviceprovider"),
+    path('ajaxseller/',views.ajaxseller,name="ajaxseller"),
+    path('bill/',views.bill,name="Bill"),
+     path('logout/',views.logout,name="logout"),
+    
 
 ]    

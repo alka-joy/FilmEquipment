@@ -10,8 +10,8 @@
 </head>
 <body>
     <center><h1>Search Seller</h1></center>
-    <br><br><br>
-    <form action="" method="post" id="Searchseller" data-places-url="{% url 'Guest:AjaxPlace' %}" enctype="multipart/form-data">
+    
+    <form action="" method="post" id="Searchseller" data-places-url="{% url 'Guest:AjaxPlace' %}" data-seller-url="{% url 'User:ajaxseller' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -21,7 +21,7 @@
                             <td>District</td>
                             <td>
                                 <select class="form-control" name="select_dis" id="sel_district">
-                                    <option>--select--</option>
+                                    <option value="">--select--</option>
                                     {% for i in pdata %}
                                     <option value="{{ i.id }}">{{ i.district_name }}</option>
                                     {% endfor %}
@@ -32,7 +32,7 @@
                             <td>Place</td>
                             <td>
                                 <select class="form-control" name="select_place" id="sel_place">
-                                    <option>--select--</option>
+                                    <option value="">--select--</option>
                                 </select>
                             </td>
                         </tr>
@@ -42,8 +42,8 @@
         </div>
     </form>
     
-    <div class="container mt-5">
-        <div class="row">
+    <div class="container mt-5" id="results">
+        <div class="row" >
             {% for i in data %}
             <div class="col-md-3">
                 <div class="card" style="border: 1px solid black; margin: 22px; padding: 20px;">
@@ -69,12 +69,33 @@
     <script>
         $("#sel_district").change(function () {
             var did = $(this).val();
+            var pid =document.getElementById("sel_place").value;
             var ur = $("#Searchseller").attr("data-places-url");
             $.ajax({
                 url: ur,
                 data: { Dist: did, },
                 success: function (data) { 
                     $("#sel_place").html(data);
+                    var ur = $("#Searchseller").attr("data-seller-url");
+            $.ajax({
+                url: ur,
+                data: { did: did,pid:pid },
+                success: function (data) { 
+                    $("#results").html(data);
+                },
+            });
+                },
+            });
+        });
+        $("#sel_place").change(function () {
+            var pid = $(this).val();
+            var did=document.getElementById("sel_district").value;
+            var ur = $("#Searchseller").attr("data-seller-url");
+            $.ajax({
+                url: ur,
+                data: { did: did,pid:pid },
+                success: function (data) { 
+                    $("#results").html(data);
                 },
             });
         });

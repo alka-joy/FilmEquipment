@@ -66,7 +66,7 @@
 										<li><a href="index_2.html">Slider Home</a></li>
 									</ul>
 								</li>
-								<li><a href="#">Pofile</a>
+								<li><a href="#">Profile</a>
 									<ul class="sub-menu">
 										<li><a href="{% url 'User:MyProfile' %}">My Profile</a></li>
 										<li><a href="{% url 'User:EditProfile' %}">Edit Profile</a></li>
@@ -75,7 +75,17 @@
 								</li>
 								<li><a href="{% url 'User:SearchSeller' %}">Search Seller</a>
 								</li>
-								<li><a href="{% url 'User:MyCart' %}">My Cart</a>
+								<li><a href="{% url 'User:SearchServiceProvider' %}">Search Service Provider</a>
+								</li>
+								<li><a href="{% url 'User:UserComplaint' %}">Complaint</a>
+								</li>
+								<li><a href="{% url 'User:UserFeedBack' %}">FeedBack</a>
+								</li>
+								<li><a href="{% url 'User:ViewServiceBooking' %}">ServiceBooking</a>
+								</li>
+								
+								<li><a href="{% url 'User:MyCart' %}">My Cart</a></li>
+									<li><a href="{% url 'User:logout' %}">LogOut</a>
 									<!-- <ul class="sub-menu">
 										<li><a href="shop.html">Shop</a></li>
 										<li><a href="checkout.html">Check Out</a></li>
