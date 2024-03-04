@@ -17,7 +17,7 @@
             <table class="table table-bordered">
                 <tr>
                     <td>Name</td>
-                    <td><input type="text" name="txt_name" class="form-control" required autocomplete="off"></td>
+                    <td><input type="text" name="txt_name" class="form-control" required autocomplete="off" pattern="^[A-Z]+[A-Za-z ]*$"></td>
                 </tr>
                 <tr>
                     <td>Contact</td>
@@ -68,7 +68,7 @@
                 </tr>
                 <tr>
                     <td>Password</td>
-                    <td><input type="password" name="txt_pass" class="form-control" required autocomplete="off"></td>
+                    <td><input type="password" name="txt_pass" class="form-control" required autocomplete="off"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required name="txt_password"></td>
                 </tr>
                 <tr>
                     <td>Confirm Password</td>
