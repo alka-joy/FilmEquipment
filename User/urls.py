@@ -28,7 +28,7 @@ urlpatterns = [
     path('ajaxstar/',views.ajaxstar,name="ajaxstar"),
     path('ajaxserviceprovider/',views.ajaxserviceprovider,name="ajaxserviceprovider"),
     path('ajaxseller/',views.ajaxseller,name="ajaxseller"),
-    path('bill/',views.bill,name="Bill"),
+    path('bill/',views.bill,name="bill"),
      path('logout/',views.logout,name="logout"),
     
 

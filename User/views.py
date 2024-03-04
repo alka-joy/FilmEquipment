@@ -286,38 +286,20 @@ def ajaxseller(request):
 
 def bill(request):
     if 'uid' in request.session:
-        usr=tbl_user.objects.get(id=request.session["uid"])
+        usr=tbl_newuser.objects.get(id=request.session["uid"])
         total=0
-        if 'bookings' in request.session and 'mbookings' in request.session:
+        
+        if 'bookings' in request.session:
             rand=random.randint(100000,999999)
             cdate=date.today()
-            bookdata=tbl_wbooking.objects.get(id=request.session["bookings"])
-            mbookdata=tbl_mbooking.objects.get(id=request.session["mbookings"])
-            mcartdata=tbl_mcart.objects.filter(mbooking=mbookdata)
-            wcartdata=tbl_wcart.objects.filter(wbooking=bookdata)
+            bookdata=tbl_booking.objects.get(id=request.session["bookings"])
+            wcartdata=tbl_cart.objects.filter(booking=bookdata)
             for i in wcartdata:
-                total=total+(int(i.qty)*int(i.works.rate))
-            for j in mcartdata:
-                total=total+(int(j.qty)*int(j.material.rate))
-            
-            return render(request,"User/bill.html",{'mdata':mcartdata,'wdata':wcartdata,'rand':rand,'cdate':cdate,'usr':usr,'total':total})
-        elif 'bookings' in request.session:
-            rand=random.randint(100000,999999)
-            cdate=date.today()
-            bookdata=tbl_wbooking.objects.get(id=request.session["bookings"])
-            wcartdata=tbl_wcart.objects.filter(wbooking=bookdata)
-            for i in wcartdata:
-                total=total+(int(i.qty)*int(i.works.rate))
-            
-            return render(request,"User/bill.html",{'wdata':wcartdata,'rand':rand,'cdate':cdate,'usr':usr,'total':total})
-        elif 'mbookings' in request.session:
-            rand=random.randint(100000,999999)
-            cdate=date.today()
-            mbookdata=tbl_mbooking.objects.get(id=request.session["mbookings"])
-            mcartdata=tbl_mcart.objects.filter(mbooking=mbookdata)
-            for i in mcartdata:
-                total=total+(int(i.qty)*int(i.material.rate))
-            return render(request,"User/bill.html",{'mdata':mcartdata,'rand':rand,'cdate':cdate,'usr':usr,'total':total})
+                total=total+(int(i.qty)*int(i.product.rate))
+            sellerid=wcartdata[0].product.shop.id
+            sellerdata=tbl_newshop.objects.get(id=sellerid)
+            return render(request,"User/bill.html",{'wdata':wcartdata,'rand':rand,'cdate':cdate,'sellerdata':sellerdata,'usr':usr,'total':total})
+        
         else:
             return render(request,"User/bill.html")
     else:

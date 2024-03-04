@@ -1,7 +1,3 @@
-{% extends 'User/header.html'%}
-{% load static %}
-{% block content%}
-
 {% load mathfilters %}
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +13,7 @@
 background:#eee;
 }
 
-/Invoice/
+/*Invoice*/
 .invoice .top-left {
     font-size:65px;
 	color:#3ba0ff;
@@ -149,10 +145,10 @@ background:#eee;
 <hr>
 <div class="row">
 <div class="col-xs-4 from">
-<p class="lead marginbottom">From : CraftHands</p>
-<p>Aluva</p>
-<p>Phone:0485 2850 641 </p>
-<p>Email:craftworld483@gmail.com</p>
+<p class="lead marginbottom">From : {{sellerdata.name}}</p>
+<p>{{sellerdata.address}}</p>
+<p>Phone: {{sellerdata.contact}}</p>
+<p>Email: {{sellerdata.email}}</p>
 </div>
 <div class="col-xs-4 to">
 <p class="lead marginbottom">To : {{usr.name}}</p>
@@ -164,7 +160,7 @@ background:#eee;
 <p class="lead marginbottom payment-info">Payment details</p>
 <p>Date: {{cdate}}</p>
 <p>Total Amount: {{total}}</p>
-<p>Account Name: {{usr.name}}
+<p>Account Name: {{usr.name}}</p>
 </div>
 </div>
 <div class="row table-row">
@@ -179,49 +175,20 @@ background:#eee;
 </tr>
 </thead>
 <tbody>
-{% if wdata and mdata %}
+
+
 {% for i in wdata %}
 <tr>
 <td class="text-center">1</td>
 <td>{{i.works.name}}</td>
 <td class="text-right">{{i.qty}}</td>
-<td class="text-right">{{i.works.rate}}</td>
-<td class="text-right">{{ i.qty|mul:i.works.rate }}</td>
-</tr>
-{% endfor %}
-{% for j in mdata %}
-<tr>
-<td class="text-center">2</td>
-<td>{{j.material.name}}</td>
-<td class="text-right">{{j.qty}}</td>
-<td class="text-right">{{j.material.rate}}</td>
-<td class="text-right">{{ j.qty|mul:j.material.rate }}</td>
-</tr>
-{% endfor %}
-
-{% elif wdata %}
-{% for i in wdata %}
-<tr>
-<td class="text-center">1</td>
-<td>{{i.works.name}}</td>
-<td class="text-right">{{i.qty}}</td>
-<td class="text-right">{{i.works.rate}}</td>
-<td class="text-right">{{ i.qty|mul:i.works.rate }}</td>
+<td class="text-right">{{i.product.rate}}</td>
+<td class="text-right">{{ i.qty|mul:i.product.rate }}</td>
 </tr>
 {% endfor %}
 
 
-{% else %}
-{% for j in mdata %}
-<tr>
-<td class="text-center">2</td>
-<td>{{j.material.name}}</td>
-<td class="text-right">{{j.qty}}</td>
-<td class="text-right">{{j.material.rate}}</td>
-<td class="text-right">{{ j.qty|mul:j.material.rate }}</td>
-</tr>
-{% endfor %}
-{% endif %}
+
 </tbody>
 </table>
 </div>
@@ -229,11 +196,12 @@ background:#eee;
 <div class="col-xs-6 margintop">
 <p class="lead marginbottom">THANK YOU!</p>
 <input type="button" onclick="printDiv('pri')" id="invoice-print"  class="btn btn-success" value="Print Invoice" />
+
 </div>
 
 <div class="col-xs-6 text-right pull-right invoice-total">
 <p>Subtotal : {{total}}</p>
-<input type="button" onclick="window.location='../userhome/'" id="invoice-print"  class="btn btn-success" value="Back to home" />
+<input type="button" onclick="window.location='../uhomepage/'" id="invoice-print"  class="btn btn-success" value="Back to home" />
 
 </div>
 </div>
@@ -258,9 +226,8 @@ background:#eee;
     
          document.body.innerHTML = printContents;
     
-    window.print();
-
-    document.body.innerHTML = originalContents;
-}
-</script>
-{% endblock content %}
+         window.print();
+    
+         document.body.innerHTML = originalContents;
+    }
+    </script>
