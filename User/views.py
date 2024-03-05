@@ -97,11 +97,14 @@ def addtocart(request,rid):
 
 def mycart(request):
     userdata=tbl_newuser.objects.get(id=request.session['uid'])
-    cdata=tbl_cart.objects.filter(booking__user=userdata)
+    cdata=tbl_cart.objects.filter(booking__user=userdata,booking__status=0)
+    bookdata=tbl_booking.objects.get(booking__user=userdata,booking__status=0)
+    request.session["bookings"]=bookdata.id
     if request.method=="POST":
         for i in cdata:
             productdata=tbl_rentitem.objects.get(id=i.product.id)
             stock=int(productdata.stock)
+            
             newstock=stock-int(i.qty)
             productdata.stock=newstock
             productdata.save()
@@ -125,7 +128,10 @@ def removecart(request,did):
 
 def payment(request):
     data=request.session["total"]
-    return render(request,"User/Payment.html",{'amount':data})
+    if request.method=="POST":
+        return redirect("User:bill")
+    else:
+        return render(request,"User/Payment.html",{'amount':data})
 
 def viewservices(request,vid):
     sdata=tbl_serviceprovider.objects.get(id=vid)
@@ -298,10 +304,10 @@ def bill(request):
                 total=total+(int(i.qty)*int(i.product.rate))
             sellerid=wcartdata[0].product.shop.id
             sellerdata=tbl_newshop.objects.get(id=sellerid)
-            return render(request,"User/bill.html",{'wdata':wcartdata,'rand':rand,'cdate':cdate,'sellerdata':sellerdata,'usr':usr,'total':total})
+            return render(request,"User/Bill.html",{'wdata':wcartdata,'rand':rand,'cdate':cdate,'sellerdata':sellerdata,'usr':usr,'total':total})
         
         else:
-            return render(request,"User/bill.html")
+            return render(request,"User/Bill.html")
     else:
         return redirect("Guest:login")
 

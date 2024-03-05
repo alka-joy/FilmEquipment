@@ -21,7 +21,7 @@
                             <td>Category</td>
                             <td>
                                 <select class="form-control" name="select_category" id="sel_category">
-                                    <option>--select--</option>
+                                    <option value="">--select--</option>
                                     {% for i in categoryid %}
                                     <option value="{{ i.id }}">{{ i.category_name }}</option>
                                     {% endfor %}
@@ -34,7 +34,7 @@
         </div>
     </form>
     
-    <div class="container mt-5">
+    <div class="container mt-5" id="cat">
         <div class="row">
             {% for i in rdata %}
             <div class="col-md-3">
