@@ -59,7 +59,7 @@ def ser(request):
     disdata=tbl_service.objects.all()
     if request.method=="POST":
         datacount=tbl_service.objects.filter(service_name=request.POST.get("txt_service"))
-        if datacount>0:
+        if datacount > 0:
             return render(request,"Admin/Service.html",{'service':disdata})
         else:    
             tbl_service.objects.create(service_name=request.POST.get("txt_service"))

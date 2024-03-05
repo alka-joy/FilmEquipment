@@ -43,7 +43,7 @@
                     <td>District</td>
                     <td>
                         <select name="select_dis" id="sel_district" class="form-control">
-                            <option>--select--</option>
+                            <option value="">--select--</option>
                             {% for i in disdata %}
                             <option value="{{ i.id }}">{{ i.district_name }}</option>
                             {% endfor %}
