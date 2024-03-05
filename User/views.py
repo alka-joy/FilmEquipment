@@ -4,6 +4,8 @@ from Seller.models import *
 from User.models import *
 from ServiceProvider.models import *
 from Admin.models import *
+import random
+from datetime import date
 # Create your views here.
 
 def userhome(request):
@@ -98,7 +100,7 @@ def addtocart(request,rid):
 def mycart(request):
     userdata=tbl_newuser.objects.get(id=request.session['uid'])
     cdata=tbl_cart.objects.filter(booking__user=userdata,booking__status=0)
-    bookdata=tbl_booking.objects.get(booking__user=userdata,booking__status=0)
+    bookdata=tbl_booking.objects.get(user=userdata,status=0)
     request.session["bookings"]=bookdata.id
     if request.method=="POST":
         for i in cdata:
@@ -302,8 +304,8 @@ def bill(request):
             wcartdata=tbl_cart.objects.filter(booking=bookdata)
             for i in wcartdata:
                 total=total+(int(i.qty)*int(i.product.rate))
-            sellerid=wcartdata[0].product.shop.id
-            sellerdata=tbl_newshop.objects.get(id=sellerid)
+            sellerid=wcartdata[0].product.seller.id
+            sellerdata=tbl_newseller.objects.get(id=sellerid)
             return render(request,"User/Bill.html",{'wdata':wcartdata,'rand':rand,'cdate':cdate,'sellerdata':sellerdata,'usr':usr,'total':total})
         
         else:

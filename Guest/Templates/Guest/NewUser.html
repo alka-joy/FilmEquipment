@@ -85,5 +85,19 @@
     </form>
 </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $("#sel_district").change(function () {
+            var did = $(this).val();
+            var ur = $("#SellerForm").attr("data-places-url");
+            $.ajax({
+                url: ur,
+                data: { Dist: did, },
+                success: function (data) { 
+                    $("#sel_place").html(data);
+                },
+            });
+        });
+</script>
 {% endblock content %}
 

@@ -58,7 +58,7 @@ def DeletePlace(request,did):
 def ser(request):
     disdata=tbl_service.objects.all()
     if request.method=="POST":
-        datacount=tbl_service.objects.filter(service_name=request.POST.get("txt_service"))
+        datacount=tbl_service.objects.filter(service_name=request.POST.get("txt_service")).count()
         if datacount > 0:
             return render(request,"Admin/Service.html",{'service':disdata})
         else:    
