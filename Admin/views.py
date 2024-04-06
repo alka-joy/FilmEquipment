@@ -182,3 +182,13 @@ def viewsellerfeedback(request):
 def logout(request):
     del request.session["aid"]
     return redirect("Guest:Login")
+
+def Reply(request,cid):
+    data=tbl_usercomplaint.objects.get(id=cid)
+    if request.method=="POST":
+        data.reply=request.POST.get('reply')
+        data.status=1
+        data.save()
+        return redirect("Admin:viewusercomplaint")
+    else:
+        return render(request,"Admin/Reply.html")

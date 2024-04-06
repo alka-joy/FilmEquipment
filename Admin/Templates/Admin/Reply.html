@@ -1,0 +1,31 @@
+{%  extends 'Admin/header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+       <br><br><br><h1 align="center">REPLY</h1>
+       <table border="0" class="tbl-product" align="center">
+            
+            <tr>
+                <td>Reply:</td>
+                <td><textarea name="reply" rows="6" cols="40"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="save" value="Save">
+                <input type="reset" name="cancel" value="Cancel"></td>
+            </tr>
+        </table>
+
+    </form>
+</body>
+</html>
+{% endblock content %}

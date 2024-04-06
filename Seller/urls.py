@@ -16,4 +16,6 @@ urlpatterns = [
     path('sellerfeedback/',views.sellerfeedback,name="SellerFeedBack"),
     path('del_feedback/<int:did>',views.DeleteFeedback,name="del_feedback"),
     path('logout/',views.logout,name="logout"),
+    path('monthlyreport/',views.monthly_booking_report,name="monthlyreport"), 
+
 ]

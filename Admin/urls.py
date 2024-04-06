@@ -30,5 +30,5 @@ urlpatterns = [
     path('viewuserfeedback/',views.viewuserfeedback,name="ViewUserFeedback"),
     path('viewsellerfeedback/',views.viewsellerfeedback,name="ViewSellerFeedback"),
     path('logout/',views.logout,name="logout"),
-    
+    path('reply/<int:cid>', views.Reply, name="reply"),
 ]

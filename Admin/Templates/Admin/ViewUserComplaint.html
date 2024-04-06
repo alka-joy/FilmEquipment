@@ -20,6 +20,7 @@
                         <th>Complaint Type</th>
                         <th>Complaint Title</th>
                         <th>Content</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +30,7 @@
                             <td>{{i.complainttype.complaint_name}}</td>
                             <td>{{i.complainttitle}}</td>
                             <td>{{i.content}}</td>
+                            <td><a href="{% url 'Admin:reply' i.id %}">Reply</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

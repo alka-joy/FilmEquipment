@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
 from Guest.models import *
 from Seller.models import *
+from datetime import datetime,timedelta
+from User.models import tbl_cart
+
 # Create your views here.
 
 def sellerhome(request):
@@ -9,9 +12,10 @@ def sellerhome(request):
 
 
 def myprofile(request):
+    
     sdata=tbl_newseller.objects.get(id=request.session['sid'])
-    return render(request,"Seller/MyProfile.html",{'sdata':sdata})    
-
+    return render(request,"Seller/MyProfile.html",{'sdata':sdata}) 
+    
 def editprofile(request):
     sdata=tbl_newseller.objects.get(id=request.session['sid'])
     if request.method=="POST":
@@ -135,3 +139,23 @@ def DeleteFeedback(request,did):
 def logout(request):
     del request.session["sid"]
     return redirect("Guest:Login")
+
+
+def monthly_booking_report(request):    # Get the current date
+    current_date = datetime.now()
+    slr=tbl_newseller.objects.get(id=request.session["sid"])
+    total=0
+    # Calculate the first day and the last day of the current month  
+    first_day_of_month = current_date.replace(day=1)
+    last_day_of_month = first_day_of_month.replace(month=first_day_of_month.month + 1, day=1) - timedelta(days=1)
+    # Query the database for bookings within the current month 
+    # monthly_bookings = Booking.objects.filter(booking_date__range=[first_day_of_month, last_day_of_month])
+    # Calculate the count of bookings for each day in the month
+    data1=tbl_cart.objects.filter(booking__date__gte=first_day_of_month,booking__date__lte=last_day_of_month,product__seller=slr)
+    for i in data1:
+        if i.product.offerstatus=="Yes":
+            total=total+(int(i.qty)*int(i.product.offerrate))
+        else:
+            total=total+(int(i.qty)*int(i.product.rate))
+    return render(request,"Seller/MonthlyReport.html",{'data1':data1,'total':total}) 
+    

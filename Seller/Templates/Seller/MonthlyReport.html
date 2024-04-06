@@ -1,0 +1,56 @@
+{% extends 'Seller/header.html' %}
+{% load static %}
+{% block content %}
+{% load mathfilters %}
+
+    {% if data1 %}
+    <center><h2 style="color: black">Monthly Record</h2></center>
+    <table border="0" align="center" cellpadding="10" class="tbl-product">
+        <tr>
+            <th>Sl.No</th>
+            <th>Product</th>
+            <th>Details</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+            <th>Photo</th>
+            <th>User</th>
+            <th>Contact Info</th>
+            <th>Email</th>
+            <th>Total</th>
+        </tr>
+
+        {% for i in data1 %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.product.name}}</td>
+            <td>{{i.product.details}}</td>
+            <td>
+                {% if i.product.offerstatus == "Yes" %}
+                {{i.product.offerrate}}
+                {% else %}
+                {{i.product.rate}}
+            {% endif %}</td>
+            <td>{{i.qty}}</td>
+            <td><img src="{{i.product.image.url}}" alt="" width="150" height="150"></td>
+            <td>{{i.booking.user.username}}</td>
+            <td>{{i.booking.user.contact}}</td>
+            <td>{{i.booking.user.email}}</td>
+            <td class="text-right">
+                {% if i.product.offerstatus == "Yes" %}
+                {{ i.qty|mul:i.product.offerrate }}
+                {% else %}
+                {{ i.qty|mul:i.product.rate }}
+                {% endif %}
+                </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="10" align="right">Grand Total:{{total}}</td>
+        </tr>
+    </table>
+   {% else %}
+   <p align="center" style="color: red;">No Recoreds</p>
+    {% endif %}
+    
+    
+{% endblock content %}
