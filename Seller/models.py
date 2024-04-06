@@ -14,6 +14,7 @@ class tbl_rentitem(models.Model):
     stock=models.IntegerField()
     category=models.ForeignKey(tbl_rentcategory,on_delete=models.CASCADE)
     seller=models.ForeignKey(tbl_newseller,on_delete=models.SET_NULL,null=True)
+    offerstatus=models.CharField(max_length=50,default=0,null=True)
 class tbl_productgallery(models.Model):
     caption=models.CharField(max_length=50)
     image=models.FileField(upload_to='Userdocs/')
